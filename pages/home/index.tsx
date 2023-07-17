@@ -1,8 +1,13 @@
-const HomePage = () => {
-    return(
-        <>
-        Home page</>
-    )
+import React from 'react';
+import NewUserForm from '@/components/organism/NewUserForm';
+import { Box } from '@mui/material';
+
+function HomePage() {
+  return (
+    <Box>
+      <NewUserForm />
+    </Box>
+  );
 }
 
-export default HomePage
+export default HomePage;

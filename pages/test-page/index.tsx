@@ -1,26 +1,27 @@
-import { setTestData } from "@/store/user/slice";
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react';
 
-const TestPage = () => {
-	const counter = useSelector((state: any) => state.user.data);
-	const dispatch = useDispatch();
+import { setTestData } from '@/store/user/slice';
+import { useDispatch, useSelector } from 'react-redux';
 
-	const checkSome = () => {
-		console.log(counter);
-	};
+function TestPage() {
+  const counter = useSelector((state: any) => state.user.data);
+  const dispatch = useDispatch();
 
-	const DispatchMe = () => {
-		dispatch(setTestData("asd"));
+  const checkSome = () => {
+    // console.log(counter);
+  };
 
-		console.log(counter);
-	};
+  const DispatchMe = () => {
+    dispatch(setTestData('asd'));
+    // console.log(counter);
+  };
 
-	return (
-		<>
-			{counter}
-			<button onClick={checkSome}>showMeStoreData</button>
-			<button onClick={DispatchMe}>DispatchMe</button>
-		</>
-	);
-};
+  return (
+    <>
+      {counter}
+      <button type="button" onClick={checkSome}>showMeStoreData</button>
+      <button type="button" onClick={DispatchMe}>DispatchMe</button>
+    </>
+  );
+}
 export default TestPage;

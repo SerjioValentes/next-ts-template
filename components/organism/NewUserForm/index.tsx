@@ -1,16 +1,22 @@
 import React from 'react';
 
 import Input from '@/components/atom/Input';
-import Box from '@mui/material/Box';
 import Button from '@/components/atom/Button';
+import FormWrapper from './style';
 
-function NewUserForm() {
+const NewUserForm = () => {
+  const onChange = () => {
+
+  };
   return (
-    <Box>
-      <Input placeholder='placehlder' />
-      <Input placeholder='placehlder' />
+
+    <FormWrapper>
+      <Input placeholder="name" />
+      <Input placeholder="surname" onChange={onChange} />
+      <Input placeholder="email" onChange={onChange} />
+      <Input placeholder="about yourself" onChange={onChange} />
       <Button>save</Button>
-    </Box>
+    </FormWrapper>
   );
-}
+};
 export default NewUserForm;

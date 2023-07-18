@@ -8,8 +8,6 @@
     "project": "./tsconfig.json"
   },
   "rules": {
-    "react/jsx-props-no-spreading": "off",
-    "namedComponents": "arrow-function",
-    "unnamedComponents": "arrow-function"
+    "react/jsx-props-no-spreading": "off"
   }
 }

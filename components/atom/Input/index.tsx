@@ -1,24 +1,23 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC } from 'react';
 
 import TextField from '@mui/material/TextField';
 import { TextFieldProps } from '@mui/material/TextField/TextField';
 
 type Props = {
-    placeholder: string;
-    onChange?: () => void;
-  };
+  placeholder: string;
+};
 
 const Input: FC<TextFieldProps & Props> = ({
-    placeholder,
-    onChange,
-    ...others }) => {
-  return (
-    <TextField   
+  placeholder,
+  onChange,
+  ...others
+}) => (
+  <TextField
     fullWidth
     size="small"
-    onChange={onChange}
     placeholder={placeholder}
-    {...others} />
-  );
-}
+    {...others}
+  />
+);
+
 export default Input;

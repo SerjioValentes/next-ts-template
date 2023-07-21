@@ -1,4 +1,6 @@
-import createTheme from '@mui/material/styles/createTheme';
+'use client';
+
+import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
   palette: {
@@ -11,16 +13,7 @@ const theme = createTheme({
       contrastText: '#1976d2',
     },
   },
-  components: {
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          color: 'darkslategray',
-        },
-      },
-      variants: [],
-    },
-  },
+
 });
 
 export default theme;

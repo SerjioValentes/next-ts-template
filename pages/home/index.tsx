@@ -1,11 +1,13 @@
 import React from 'react';
-import NewUserForm from '@/components/organism/NewUserForm';
+import AuthForm from '@/components/organism/AuthForm';
 import { Box } from '@mui/material';
+import FirstSection from '@/components/organism/HomePage/FirstBlock';
 
 function HomePage() {
   return (
     <Box>
-      <NewUserForm />
+      <FirstSection />
+      <AuthForm />
     </Box>
   );
 }

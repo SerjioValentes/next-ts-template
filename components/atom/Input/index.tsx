@@ -16,6 +16,7 @@ const Input: FC<TextFieldProps & Props> = ({
     fullWidth
     size="small"
     placeholder={placeholder}
+    onChange={onChange}
     {...others}
   />
 );

@@ -1,7 +1,8 @@
+'use client';
+
 import React from 'react';
-// import { styled } from '@mui/material/styles';
-// import Paper from '@mui/material/Paper';
-import { Box } from '@mui/material';
+import { Button } from '@mui/material';
+import client from '@/helpers/sanity/client';
 import FirstSectionWrapper from './style';
 
 // const Item = styled(Paper)(({ theme }) => ({
@@ -14,31 +15,7 @@ import FirstSectionWrapper from './style';
 
 const FirstSection = () => (
   <FirstSectionWrapper>
-    <Box sx={{
-      display: 'flex',
-    }}
-    >
-
-      <Box sx={{
-      //   display: 'flex',
-        width: '60vw',
-        height: '100vh',
-        background: '#000',
-      }}
-      >
-        dsfsd
-      </Box>
-
-      <Box sx={{
-      //   display: 'flex',
-        width: '40vw',
-        height: '100vh',
-        background: 'red',
-      }}
-      >
-        dsfsd
-      </Box>
-    </Box>
+    {/* <Button onClick={reqTest}>send req</Button> */}
   </FirstSectionWrapper>
 );
 

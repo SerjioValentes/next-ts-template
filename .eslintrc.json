@@ -13,6 +13,7 @@
       "namedComponents": "arrow-function",
       "unnamedComponents": "arrow-function"
     }],
+    "no-underscore-dangle": "off",
     "no-useless-escape":"off"
   }
 }

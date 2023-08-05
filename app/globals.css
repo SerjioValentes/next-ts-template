@@ -98,7 +98,20 @@ a {
   }
 } */
 
+/* :root {
+  font-family: 'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
+    'Fira Mono', 'Droid Sans Mono';
+} */
+
 body {
   margin: 0;
   padding: 0;
+}
+
+a{
+  color: black;
+  text-decoration: none;
+}
+main{
+  /* width: 1200px; */
 }

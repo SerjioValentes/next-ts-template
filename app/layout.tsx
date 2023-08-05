@@ -1,10 +1,15 @@
 import React from 'react';
 import Head from 'next/head';
 import './globals.css';
-import { Inter } from 'next/font/google';
+import { Inter, Roboto } from 'next/font/google';
 import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'] });
+const roboto = Roboto({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 export const metadata = {
   title: 'Create Next App',
@@ -19,7 +24,7 @@ export default function RootLayout({
   const THEME_COLOR = 'fff';
 
   return (
-    <html lang="en">
+    <html lang="en" className={roboto.className}>
       <Head>
         <title />
         <meta charSet="utf-8" />

@@ -1,17 +1,34 @@
+'use client';
+
 import React from 'react';
-// import AuthForm from '@/components/organism/AuthForm';
 import { Box } from '@mui/material';
-// import CardsSection from '@/components/organism/HomePage/CardsSection';
-import AboutMeSection from '@/components/organism/HomePage/AbouMeSection';
-// import FirstSection from '@/components/organism/HomePage/FirstSection';
+import FirstSection from '@/components/organism/HomePage/FirstSection';
+// import FirstSectionRHF from '@/components/organism/HomePage/FIrstSectionRHF';
+// import AuthForm from '@/components/organism/AuthForm';
 
 function HomePage() {
+  // const [loginFormAccess, setLoginFormAccess] = useState<string | null | undefined>('');
+  // const winAcces = window.localStorage.getItem('accessToken');
+
+  // useEffect(() => {
+  //   console.log(winAcces);
+  //   setLoginFormAccess(winAcces);
+  // }, []);
+
   return (
-    <Box>
-      {/* <FirstSection /> */}
-      {/* <CardsSection /> */}
-      <AboutMeSection />
-      {/* <AuthForm /> */}
+    <Box sx={{
+      backgroundImage: 'url(/assets/bg/background.jpg)',
+      width: '100%',
+      // backgroundRepeat: 'repeat',
+      // backgroundSize: '300%',
+      height: '100vh',
+    }}
+    >
+      {/* {!winAcces
+        ? <AuthForm />} */}
+      <FirstSection />
+      {/* <img src="/assets/bg/bg_hor.jpg" /> */}
+      {/* <FirstSectionRHF /> */}
     </Box>
   );
 }

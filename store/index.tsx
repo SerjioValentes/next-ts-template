@@ -1,30 +1,17 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { createSlice } from '@reduxjs/toolkit'
-import  userSlice  from './user/slice'
+import { configureStore } from '@reduxjs/toolkit';
+import { createWrapper } from 'next-redux-wrapper';
+import { useDispatch } from 'react-redux';
+import user from './user/slice';
+import header from './header';
 
-// create a slice 
-// export const iconslice= createSlice({
-// name:"icon",
-// initialState:{
-//      icon:'moon'
-// },
-// reducers:{
-//      iconMoon:state=>{
-//         state.icon= 'moon'
-//      },
-//      iconSun:state=>{
-//         state.icon= 'sun'
-//     },
-//    }
-// })
+export const store = configureStore({
+  reducer: {
+    user,
+    header,
+  },
+});
 
-
-// config the store 
-const store= configureStore({
-   reducer: {
-      user: userSlice
-   }
-})
-
-// export default the store 
-export default store
+export const wrapper = createWrapper(() => store);
+export const storeMain = store;
+export type AppState = ReturnType<typeof store.getState>;
+export const useAppDispatch = () => useDispatch();

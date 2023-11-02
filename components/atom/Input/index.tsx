@@ -4,21 +4,22 @@ import TextField from '@mui/material/TextField';
 import { TextFieldProps } from '@mui/material/TextField/TextField';
 
 type Props = {
-  placeholder: string;
+  label: string;
 };
 
-const Input: FC<TextFieldProps & Props> = ({
-  placeholder,
+const MuiInputTextField: FC<TextFieldProps & Props> = ({
+  label,
   onChange,
   ...others
 }) => (
   <TextField
     fullWidth
+    label={label}
+    variant="filled"
     size="small"
-    placeholder={placeholder}
     onChange={onChange}
     {...others}
   />
 );
 
-export default Input;
+export default MuiInputTextField;

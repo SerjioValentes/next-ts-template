@@ -1,17 +1,19 @@
+'use client';
+
 import React from 'react';
-import { Provider } from 'react-redux';
+// import { Provider } from 'react-redux';
 import type { AppProps } from 'next/app';
 import theme from '@/helpers/ThemeProvider';
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import store from '../store/index';
+// import { setupStore } from '@/store';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Component {...pageProps} />
-      </ThemeProvider>
-    </Provider>
+  // <Provider store={setupStore}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Component {...pageProps} />
+    </ThemeProvider>
+  // </Provider>
   );
 }

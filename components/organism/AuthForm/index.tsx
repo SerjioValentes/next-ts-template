@@ -37,10 +37,6 @@ function AuthForm() {
     signInWithEmailAndPassword(setErrors, userData);
   };
 
-  // const checkErrors = () => {
-  //   console.log(errors);
-  // };
-
   return (
     <FormWrapper>
       <Input name="email" placeholder="email" onChange={userDataOnChange} />
@@ -50,7 +46,6 @@ function AuthForm() {
       {isNewUser
         ? <Button variant="contained" onClick={logIn}>LogIn</Button>
         : <Button variant="contained" onClick={createAccount}>Create account</Button>}
-      {/* <Button onClick={checkErrors}>checkErrors</Button> */}
     </FormWrapper>
   );
 }

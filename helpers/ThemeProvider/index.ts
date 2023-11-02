@@ -1,8 +1,30 @@
 'use client';
 
-import { createTheme } from '@mui/material/styles';
+import { createTheme, Theme } from '@mui/material/styles';
+import { Montserrat } from 'next/font/google';
 
-const theme = createTheme({
+const montserrat = Montserrat({
+  weight: ['300'],
+  style: ['normal'],
+  subsets: ['latin'],
+});
+
+const theme: Theme = createTheme({
+  components: {
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& label.Mui-focused': {
+            color: '#000',
+          },
+        },
+      },
+    },
+  },
+  typography: {
+    fontFamily: montserrat.style.fontFamily,
+    fontSize: 16,
+  },
   breakpoints: {
     values: {
       xs: 0,
@@ -12,32 +34,18 @@ const theme = createTheme({
       xl: 1250,
     },
   },
-  typography: {
-    fontFamily: [
-      // '-apple-system',
-      // 'BlinkMacSystemFont',
-      // '"Segoe UI"',
-      // '"Helvetica Neue"',
-      // 'Arial',
-      // 'sans-serif',
-      // '"Apple Color Emoji"',
-      // '"Segoe UI Emoji"',
-      // '"Segoe UI Symbol"',
-    ].join(','),
-  },
   palette: {
     primary: {
-      main: '#fff',
+      main: '#42a5f5',
       light: '#42a5f5',
       dark: '#1565c0',
-      contrastText: '#1976d2',
+      contrastText: '#fff',
     },
     secondary: {
-      main: '#1976d2',
-      contrastText: '#1976d2',
+      main: '#fff',
+      contrastText: '#fff',
     },
   },
-
 });
 
 export default theme;

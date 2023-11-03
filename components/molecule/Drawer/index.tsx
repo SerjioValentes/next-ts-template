@@ -10,11 +10,15 @@ import Button from '@mui/material/Button';
 import MenuIcon from '@mui/icons-material/Menu';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import useAppSelector from '@/hooks/useAppSelector';
+import { setSavedNotes as dispatchSetSavedNotes } from '@/store/user/slice';
+import { useAppDispatch } from '@/store';
 
-export default function RightMenuDrawer({ savedNotes, setSavedNotes }: any) {
+// export default function RightMenuDrawer({ savedNotes, setSavedNotes }: any) {
+export default function RightMenuDrawer({ savedNotes }: any) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [whatToShow, setWhatToShow] = useState('articles');
   const allRoundsData = useAppSelector((state) => state.user.allRoundsData);
+  const dispatch = useAppDispatch();
 
   const openDrawer = () => {
     setIsDrawerOpen(true);
@@ -25,8 +29,7 @@ export default function RightMenuDrawer({ savedNotes, setSavedNotes }: any) {
 
   const deleteNote = (date: string) => {
     const newSavedNotes = savedNotes.filter((item: any) => item.date !== date);
-    setSavedNotes(newSavedNotes);
-    // console.log(newSavedNotes);
+    dispatch(dispatchSetSavedNotes(newSavedNotes));
   };
   const changeData = (data: string) => {
     if (data === 'articles') {
@@ -35,14 +38,10 @@ export default function RightMenuDrawer({ savedNotes, setSavedNotes }: any) {
     return setWhatToShow('allRounds');
   };
 
-  //   const showMeMore = () => {
-  //     console.log(allRoundsData);
-  //   };
-
   return (
     <div>
       <Button onClick={openDrawer}>
-        <MenuIcon color="secondary" />
+        <MenuIcon color="primary" />
       </Button>
 
       <MuiDrawer

@@ -5,9 +5,11 @@ import { createSlice } from '@reduxjs/toolkit';
 interface UserInitialState {
   data: any,
   allRoundsData: any,
+  savedNotes: any,
 }
 
 const initialState: UserInitialState = {
+  savedNotes: [],
   allRoundsData: [],
   data: {
     round: 0,
@@ -59,7 +61,10 @@ export const userSlice = createSlice({
     setAllRoundsData(state, action) {
       state.allRoundsData = action.payload;
     },
+    setSavedNotes(state, action) {
+      state.savedNotes = action.payload;
+    },
   },
 });
-export const { setEachPlayerData, setAllRoundsData } = userSlice.actions;
+export const { setEachPlayerData, setAllRoundsData, setSavedNotes } = userSlice.actions;
 export default userSlice.reducer;

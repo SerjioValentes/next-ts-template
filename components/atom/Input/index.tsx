@@ -13,10 +13,15 @@ const MuiInputTextField: FC<TextFieldProps & Props> = ({
   ...others
 }) => (
   <TextField
+    InputLabelProps={{
+      style: {
+        fontSize: 12,
+      },
+    }} // font size of input label
     fullWidth
     label={label}
     variant="filled"
-    size="small"
+    size="medium"
     onChange={onChange}
     {...others}
   />

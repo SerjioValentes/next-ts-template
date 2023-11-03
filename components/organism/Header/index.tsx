@@ -1,16 +1,20 @@
 'use client';
 
+import RightMenuDrawer from '@/components/molecule/Drawer';
+import { getNormalNumber } from '@/helpers/utils/restyling';
 // import getNumberWithSpaces from '@/helpers/utils/restyling';
 import useAppSelector from '@/hooks/useAppSelector';
 import { useAppDispatch } from '@/store';
 import { setHeaderMainPlayerData } from '@/store/header';
+import { setAllRoundsData, setEachPlayerData } from '@/store/user/slice';
 import {
-  Box, TextField, Typography,
+  Box, Button, Dialog, DialogTitle, Stack, TextField, Typography,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 // import useWindowSize from '@/hooks/useWindowSize';
 
 const Header = () => {
+  const [isDialogEndRoundOpen, setIsDialogEndRoundOpen] = useState(false);
   const [gameMainValues, setGameMainValues] = useState({
     name: '',
     bussiness: '',
@@ -19,7 +23,9 @@ const Header = () => {
 
   });
   const dispatch = useAppDispatch();
-  const playerEachRoundData = useAppSelector((state) => state.user.data);
+  const eachUserData = useAppSelector((state) => state.user.data);
+  const allRoundsData = useAppSelector((state) => state.user.allRoundsData);
+  const savedNotes = useAppSelector((state) => state.user.savedNotes);
 
   const handleOnChange = (value: any, gameValue: string) => {
     // TODO - check this function - maybe can change to dispatch and get values from there
@@ -45,6 +51,40 @@ const Header = () => {
     }
   }, []);
 
+  const getEachUserData = () => {
+    console.log(allRoundsData);
+    setIsDialogEndRoundOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsDialogEndRoundOpen(false);
+  };
+
+  const endRound = () => {
+    const constantClients = getNormalNumber(eachUserData.sellFunnel_02_ConstantClients);
+    const regularPayClients = getNormalNumber(eachUserData.sellFunnel_02_RegularPayClients);
+    // if (eachUserData.round === 1) {
+    //   const dateCountRoundPayClientsCopy = {
+    //     ...eachUserData,
+    //     date: new Date().toISOString(),
+    //   };
+    //   dispatch(setAllRoundsData([dateCountRoundPayClientsCopy]));
+    // }
+
+    const dateCountRoundPayClients = {
+      ...eachUserData,
+      sellFunnel_02_RegularPayClients: regularPayClients + constantClients,
+      round: eachUserData.round + 1,
+      date: new Date().toISOString(),
+    };
+
+    window.localStorage.setItem('inputValue', JSON.stringify(eachUserData));
+
+    dispatch(setEachPlayerData(dateCountRoundPayClients));
+    dispatch(setAllRoundsData([...allRoundsData, dateCountRoundPayClients]));
+    handleClose();
+  };
+
   return (
     <Box sx={{
       display: 'flex',
@@ -56,7 +96,22 @@ const Header = () => {
       gap: 4,
     }}
     >
-      <Typography variant="h5">22Game.ru</Typography>
+      <Button
+        sx={{
+          fontSize: '12px',
+          px: 4,
+        }}
+        variant="contained"
+        onClick={getEachUserData}
+      >
+        Завершить
+
+      </Button>
+
+      <RightMenuDrawer
+        savedNotes={savedNotes}
+      />
+      {/* <Typography variant="h5">22Game.ru</Typography> */}
 
       <TextField
         label="Имя"
@@ -84,8 +139,25 @@ const Header = () => {
       >
         Ход №
         {' '}
-        {playerEachRoundData.round}
+        {eachUserData.round + 1}
       </Typography>
+
+      <Dialog onClose={handleClose} open={isDialogEndRoundOpen}>
+        <Box sx={{
+          p: 4,
+        }}
+        >
+
+          <DialogTitle>
+            Завершить ход?
+          </DialogTitle>
+          <Stack direction="row" justifyContent="center" spacing={2}>
+
+            <Button onClick={endRound} variant="contained">Завершить</Button>
+            <Button onClick={handleClose} variant="contained">Отменить</Button>
+          </Stack>
+        </Box>
+      </Dialog>
     </Box>
   );
 };

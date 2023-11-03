@@ -21,12 +21,17 @@ function HomePage() {
       width: '100%',
       // backgroundRepeat: 'repeat',
       // backgroundSize: '300%',
-      height: '100vh',
+      // height: '100vh',
     }}
     >
       {/* {!winAcces
         ? <AuthForm />} */}
-      <FirstSection />
+      <Box sx={{
+        p: 4,
+      }}
+      >
+        <FirstSection />
+      </Box>
       {/* <img src="/assets/bg/bg_hor.jpg" /> */}
       {/* <FirstSectionRHF /> */}
     </Box>

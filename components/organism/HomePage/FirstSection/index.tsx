@@ -1,19 +1,17 @@
 'use client';
 
 import {
-  Box, Button, Dialog, DialogTitle, Grid, Stack, TextField,
+  Box, Button, Dialog, DialogTitle, Grid, InputAdornment, Stack, TextField,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import './style.scss';
 import MuiInputTextField from '@/components/atom/Input';
 import inputList from '@/helpers/utils/inputs';
 import styled from '@emotion/styled';
-// import MenuIcon from '@mui/icons-material/Menu';
 import { useAppDispatch } from '@/store';
-import { setAllRoundsData, setEachPlayerData } from '@/store/user/slice';
+import { setAllRoundsData, setEachPlayerData, setSavedNotes as dispatchSetSavedNotes } from '@/store/user/slice';
 import useAppSelector from '@/hooks/useAppSelector';
-import RightMenuDrawer from '@/components/molecule/Drawer';
-import getNumberWithSpaces from '@/helpers/utils/restyling';
+import { getNormalNumber, getNumberWithSpaces } from '@/helpers/utils/restyling';
 import dependenceInputFields from './dependenceInputFields';
 
 const FirstSection = () => {
@@ -57,32 +55,35 @@ const FirstSection = () => {
   });
   const [openDialog, setOpenDialog] = useState(false);
   const [dialogValue, setDialogValue] = useState('');
-  const [savedNotes, setSavedNotes] = useState<any>([]);
 
   const [dialogAmount, setDialogAmount] = useState('');
   const [dialogNote, setDialogNote] = useState('');
 
-  const userDispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const allRoundsData = useAppSelector((state) => state.user.allRoundsData);
+  const eachUserData = useAppSelector((state) => state.user.data);
+  const savedNotes = useAppSelector((state) => state.user.savedNotes);
+
   // TODO - change func name without set
-  const setStateHelper = (functionConst: string, value: string | number) => {
-    const mainInfoCInputValue = {
-      ...inputValue,
-      [functionConst]: getNumberWithSpaces(value),
-    };
-    userDispatch(setEachPlayerData(mainInfoCInputValue));
+  const setStateHelper = (functionConst: string, value: number) => {
     setInputValue((prev: any) => ({
       ...prev,
-      [functionConst]: getNumberWithSpaces(value),
+      [functionConst]: getNumberWithSpaces(Math.round(value) || value),
     }));
+    // dispatch(setEachPlayerData({
+    //   ...eachUserData,
+    //   [functionConst]: getNumberWithSpaces(Math.round(value) || value),
+    // }));
   };
-
-  const getNormalNumber = (value: string | number) => Number(value.toString().replaceAll(' ', ''));
 
   const textFieldOnChange = (value: any, functionConst: string) => {
     setStateHelper(functionConst, value);
-
     const object = {
+      ...inputValue,
+      [functionConst]: value,
+    };
+
+    let copyDisapatch = {
       ...inputValue,
       [functionConst]: value,
     };
@@ -101,31 +102,52 @@ const FirstSection = () => {
     const applications = getNormalNumber(object.sellFunnel_01_Applications);
     const funnelSell = getNormalNumber(object.sellFunnel_01_Sells);
     const funnelCv3 = getNormalNumber(object.sellFunnel_02_CV3);
+    const shows = getNormalNumber(object.firstFun_Shows);
+    const firstFunSells = getNormalNumber(object.firstFun_Sells);
+    const sellFunnelCv2 = getNormalNumber(object.sellFunnel_01_CV2);
+    const constantCostsFotOwner = getNormalNumber(object.constantCosts_FotOwner);
+    const constantCostsFot = getNormalNumber(object.constantCosts_Fot);
+    const sellBill = getNormalNumber(object.sellFunnel_03_MedBill);
+    const sellRegularPayClients = getNormalNumber(object.sellFunnel_02_RegularPayClients);
+    const sellConstantClients = getNormalNumber(object.sellFunnel_02_ConstantClients);
 
     if (dependenceInputFields.applications.includes(functionConst)) {
       setStateHelper(
         'firstFun_Applications',
-        (getNormalNumber(object.firstFun_Shows) * getNormalNumber(firstCv1)) / 100,
+        (shows * getNormalNumber(firstCv1)) / 100,
       );
+      copyDisapatch = {
+        ...copyDisapatch,
+        firstFun_Applications: (shows * getNormalNumber(firstCv1)) / 100,
+      };
     }
 
     if (dependenceInputFields.oncePayment.includes(functionConst)) {
       setStateHelper(
         'firstFun_Sells',
-        (getNormalNumber(object.firstFun_Applications) * getNormalNumber(firstCv2)) / 100,
+        (getNormalNumber(object.firstFun_Applications) * firstCv2) / 100,
       );
 
       setStateHelper(
         'firstFun_OnceRevenue',
         getNormalNumber(object.firstFun_Sells) * getNormalNumber(object.firstFun_MedBill),
       );
+      copyDisapatch = {
+        ...copyDisapatch,
+        firstFun_Sells: (getNormalNumber(object.firstFun_Applications) * firstCv2) / 100,
+        firstFun_OnceRevenue: firstFunSells * getNormalNumber(object.firstFun_MedBill),
+      };
     }
 
     if (dependenceInputFields.sellsApplication.includes(functionConst)) {
       setStateHelper(
         'sellFunnel_01_Applications',
-        (getNormalNumber(object.sellFunnel_01_CV1) * getNormalNumber(firstShows)) / 100,
+        (getNormalNumber(object.sellFunnel_01_CV1) * firstShows) / 100,
       );
+      copyDisapatch = {
+        ...copyDisapatch,
+        sellFunnel_01_Applications: (getNormalNumber(object.sellFunnel_01_CV1) * firstShows) / 100,
+      };
     }
 
     if (dependenceInputFields.sellsAmount.includes(functionConst)) {
@@ -133,17 +155,30 @@ const FirstSection = () => {
         'sellFunnel_01_Sells',
         (getNormalNumber(object.sellFunnel_01_CV2) * getNormalNumber(applications)) / 100,
       );
+      copyDisapatch = {
+        ...copyDisapatch,
+        sellFunnel_01_Sells: (sellFunnelCv2 * getNormalNumber(applications)) / 100,
+      };
     }
 
     if (dependenceInputFields.clients.includes(functionConst)) {
       setStateHelper(
         'sellFunnel_02_ConstantClients',
-        Math.round((getNormalNumber(funnelCv3) * getNormalNumber(funnelSell)) / 100),
+        Math.round((funnelCv3 * funnelSell) / 100),
       );
+      copyDisapatch = {
+        ...copyDisapatch,
+        sellFunnel_02_ConstantClients: Math.round((funnelCv3 * funnelSell) / 100),
+      };
     }
 
     if (dependenceInputFields.earning.includes(functionConst)) {
+      const revenue = sellBill * (sellRegularPayClients + funnelSell + sellConstantClients);
       setStateHelper('sellFunnel_03_Revenue', getNormalNumber(object.sellFunnel_03_MedBill) * (getNormalNumber(object.sellFunnel_02_RegularPayClients) + getNormalNumber(object.sellFunnel_01_Sells) + getNormalNumber(object.sellFunnel_02_ConstantClients)));
+      copyDisapatch = {
+        ...copyDisapatch,
+        sellFunnel_03_Revenue: revenue,
+      };
     }
 
     if (dependenceInputFields.totalInProfit.includes(functionConst)) {
@@ -159,39 +194,53 @@ const FirstSection = () => {
       setStateHelper('mainCostsField_ClearProfit', mainCostsFieldClearProfit);
       setStateHelper('firstFun_VariableCosts', firstFunVariableCosts);
       setStateHelper('firstFun_Profit', firstFunProfit);
-
       setStateHelper('mainCostsField_MoneyFor', mainCostsFieldClearProfit + firstFunProfit);
+
+      copyDisapatch = {
+        ...copyDisapatch,
+        variableCosts_TotalPercent: varCostsTotalPercent,
+        variableCosts_TotalCosts: varCostsTotalCosts,
+        mainCostsField_Costs: (varCostsTotalCosts + totalCosts),
+        mainCostsField_ClearProfit: mainCostsFieldClearProfit,
+        firstFun_VariableCosts: firstFunVariableCosts,
+        firstFun_Profit: firstFunProfit,
+        mainCostsField_MoneyFor: mainCostsFieldClearProfit + firstFunProfit,
+      };
     }
 
     if (dependenceInputFields.totalConst.includes(functionConst)) {
       const constantCostsCreditPay = getNormalNumber(object.constantCosts_CreditAll) / 10;
       setStateHelper('constantCosts_CreditPay', constantCostsCreditPay);
       setStateHelper('constantCosts_TotalCosts', getNormalNumber(object.constantCosts_FotOwner) + getNormalNumber(object.constantCosts_Fot) + constantCostsCreditPay);
+      copyDisapatch = {
+        ...copyDisapatch,
+        constantCosts_CreditPay: constantCostsCreditPay,
+        constantCosts_TotalCosts: constantCostsFotOwner + constantCostsFot + constantCostsCreditPay,
+      };
     }
+    dispatch(setEachPlayerData(copyDisapatch));
   };
 
   const endRound = () => {
-    const allRoundsDataLocal = [...allRoundsData, {
+    const constantClients = getNormalNumber(inputValue.sellFunnel_02_ConstantClients);
+    const regularPayClients = getNormalNumber(inputValue.sellFunnel_02_RegularPayClients);
+    const dateCountRoundPayClients = {
       ...inputValue,
+      sellFunnel_02_RegularPayClients: regularPayClients + constantClients,
       round: inputValue.round + 1,
       date: new Date().toISOString(),
-    }];
+    };
 
     window.localStorage.setItem('inputValue', JSON.stringify(inputValue));
 
     setInputValue((prev: any) => ({
       ...prev,
+      sellFunnel_02_RegularPayClients: regularPayClients + constantClients,
       round: inputValue.round + 1,
     }));
 
-    const mainInfoCInputValue = {
-      ...inputValue,
-      round: inputValue.round + 1,
-      date: new Date().toISOString(),
-    };
-
-    userDispatch(setEachPlayerData(mainInfoCInputValue));
-    userDispatch(setAllRoundsData(allRoundsDataLocal));
+    dispatch(setEachPlayerData(dateCountRoundPayClients));
+    dispatch(setAllRoundsData([...allRoundsData, dateCountRoundPayClients]));
   };
 
   useEffect(() => {
@@ -201,7 +250,7 @@ const FirstSection = () => {
       setInputValue(JSON.parse(winLocal as string));
     }
     if (localStorageSavedNotes) {
-      setSavedNotes(JSON.parse(localStorageSavedNotes as string));
+      dispatch(dispatchSetSavedNotes(JSON.parse(localStorageSavedNotes as string)));
     }
   }, []);
 
@@ -228,7 +277,7 @@ const FirstSection = () => {
   };
   const saveNote = () => {
     const moneyFor = inputValue.mainCostsField_MoneyFor;
-    const newSaveNote = savedNotes;
+    const newSaveNote: any = savedNotes;
     let totalMoney = 0;
 
     const newSavedNoteValue = {
@@ -237,6 +286,7 @@ const FirstSection = () => {
       note: dialogNote,
       whatHappened: dialogValue,
     };
+
     if (dialogValue === 'Убавить') {
       totalMoney = getNormalNumber(moneyFor) - getNormalNumber(dialogAmount);
     }
@@ -245,10 +295,12 @@ const FirstSection = () => {
     }
 
     setStateHelper('mainCostsField_MoneyFor', totalMoney);
-
-    newSaveNote.push(newSavedNoteValue);
-    window.localStorage.setItem('savedNotes', JSON.stringify(newSaveNote));
-    setSavedNotes(newSaveNote);
+    dispatch(setEachPlayerData({
+      ...eachUserData,
+      mainCostsField_MoneyFor: getNumberWithSpaces(totalMoney),
+    }));
+    window.localStorage.setItem('savedNotes', JSON.stringify([...newSaveNote, newSavedNoteValue]));
+    dispatch(dispatchSetSavedNotes([...newSaveNote, newSavedNoteValue]));
     handleClose();
   };
 
@@ -257,25 +309,62 @@ const FirstSection = () => {
     '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
       display: 'none',
     },
+    '& .MuiOutlinedInput-root': {
+      backgroundColor: 'white',
+    },
     input: {
       backgroundColor: 'white',
-      borderRadius: 2,
+      borderTopLeftRadius: 4,
+      borderBottomLeftRadius: 4,
     },
+  };
+
+  const addClientsRegularPay = (isIncrease: boolean) => {
+    if (isIncrease) {
+      return setStateHelper('sellFunnel_02_RegularPayClients', getNormalNumber(inputValue.sellFunnel_02_RegularPayClients) + 1);
+    }
+    if (inputValue.sellFunnel_02_RegularPayClients === '0') {
+      return console.log('');
+    }
+    return setStateHelper('sellFunnel_02_RegularPayClients', getNormalNumber(inputValue.sellFunnel_02_RegularPayClients) - 1);
   };
 
   return (
     <Grid container spacing={2}>
+      <Button onClick={() => {
+        console.log(savedNotes);
+      }}
+      >
+        show
+
+      </Button>
       <Grid xs={3} item>
         <InputTitleWrapper>Разовая воронка</InputTitleWrapper>
         <Box sx={{
           border: '1px solid white',
           borderRadius: 2,
           p: 2,
+          mt: 1,
         }}
         >
           {inputList.firstFunnel.map((item) => (
             <MuiInputTextField
               key={item.label}
+              InputProps={{
+                endAdornment:
+  <InputAdornment
+    sx={{
+      mx: 0,
+      backgroundColor: 'white',
+      padding: '29.7px 14px',
+      borderTopRightRadius: 4,
+      borderBottomRightRadius: 4,
+    }}
+    position="end"
+  >
+    {item.inputProps}
+  </InputAdornment>,
+              }}
               sx={styleWithoutArrows}
               disabled={item.disabled}
               value={inputValue[item.functionConst]}
@@ -291,6 +380,21 @@ const FirstSection = () => {
         {inputList.sellFunnel_01.map((item) => (
           <MuiInputTextField
             key={item.label}
+            InputProps={{
+              endAdornment:
+  <InputAdornment
+    sx={{
+      mx: 0,
+      backgroundColor: 'white',
+      padding: '29.7px 14px',
+      borderTopRightRadius: 4,
+      borderBottomRightRadius: 4,
+    }}
+    position="end"
+  >
+    {item.inputProps}
+  </InputAdornment>,
+            }}
             sx={styleWithoutArrows}
             disabled={item.disabled}
             label={item.label}
@@ -301,6 +405,21 @@ const FirstSection = () => {
 
         {inputList.sellFunnel_02.map((item) => (
           <MuiInputTextField
+            InputProps={{
+              endAdornment:
+  <InputAdornment
+    sx={{
+      mx: 0,
+      backgroundColor: 'white',
+      padding: '29.7px 14px',
+      borderTopRightRadius: 4,
+      borderBottomRightRadius: 4,
+    }}
+    position="end"
+  >
+    {item.inputProps}
+  </InputAdornment>,
+            }}
             sx={styleWithoutArrows}
             key={item.label}
             disabled={item.disabled}
@@ -309,9 +428,52 @@ const FirstSection = () => {
             onChange={(e) => textFieldOnChange(e.target.value, item.functionConst)}
           />
         ))}
+        <Stack
+          direction="row"
+          spacing={2}
+          sx={{
+            display: 'flex',
+          }}
+        >
+
+          <Button
+            sx={{
+              fontSize: 10,
+            }}
+            size="small"
+            onClick={() => addClientsRegularPay(true)}
+            variant="contained"
+          >
+            Добавить
+          </Button>
+          <Button
+            sx={{
+              fontSize: 10,
+            }}
+            onClick={() => addClientsRegularPay(false)}
+            variant="contained"
+          >
+            Убавить
+          </Button>
+        </Stack>
 
         {inputList.sellFunnel_03.map((item) => (
           <MuiInputTextField
+            InputProps={{
+              endAdornment:
+  <InputAdornment
+    sx={{
+      mx: 0,
+      backgroundColor: 'white',
+      padding: '29.7px 14px',
+      borderTopRightRadius: 4,
+      borderBottomRightRadius: 4,
+    }}
+    position="end"
+  >
+    {item.inputProps}
+  </InputAdornment>,
+            }}
             sx={styleWithoutArrows}
             key={item.label}
             label={item.label}
@@ -329,6 +491,21 @@ const FirstSection = () => {
         <InputTitleWrapper>Переменные расходы</InputTitleWrapper>
         {inputList.variableCosts.map((item) => (
           <MuiInputTextField
+            InputProps={{
+              endAdornment:
+  <InputAdornment
+    sx={{
+      mx: 0,
+      backgroundColor: 'white',
+      padding: '29.7px 14px',
+      borderTopRightRadius: 4,
+      borderBottomRightRadius: 4,
+    }}
+    position="end"
+  >
+    {item.inputProps}
+  </InputAdornment>,
+            }}
             sx={styleWithoutArrows}
             key={item.label}
             disabled={item.disabled}
@@ -344,6 +521,21 @@ const FirstSection = () => {
         >
           {inputList.mainCostsField.map((item) => (
             <MuiInputTextField
+              InputProps={{
+                endAdornment:
+  <InputAdornment
+    sx={{
+      mx: 0,
+      backgroundColor: 'white',
+      padding: '29.7px 14px',
+      borderTopRightRadius: 4,
+      borderBottomRightRadius: 4,
+    }}
+    position="end"
+  >
+    {item.inputProps}
+  </InputAdornment>,
+              }}
               sx={styleWithoutArrows}
               key={item.label}
               label={item.label}
@@ -357,9 +549,9 @@ const FirstSection = () => {
             spacing={2}
             sx={{
               display: 'flex',
-              justifyContent: 'space-between',
             }}
           >
+
             <Button
               sx={{
                 fontSize: 10,
@@ -371,11 +563,6 @@ const FirstSection = () => {
               Добавить
 
             </Button>
-            <RightMenuDrawer
-              setInputValue={setInputValue}
-              setSavedNotes={setSavedNotes}
-              savedNotes={savedNotes}
-            />
             <Button
               sx={{
                 fontSize: 10,
@@ -395,6 +582,21 @@ const FirstSection = () => {
         <InputTitleWrapper>Постоянные расходы</InputTitleWrapper>
         {inputList.constantCosts.map((item) => (
           <MuiInputTextField
+            InputProps={{
+              endAdornment:
+  <InputAdornment
+    sx={{
+      mx: 0,
+      backgroundColor: 'white',
+      padding: '29.7px 14px',
+      borderTopRightRadius: 4,
+      borderBottomRightRadius: 4,
+    }}
+    position="end"
+  >
+    {item.inputProps}
+  </InputAdornment>,
+            }}
             sx={styleWithoutArrows}
             key={item.label}
             label={item.label}
@@ -455,6 +657,7 @@ const FirstSection = () => {
           <Button onClick={saveNote} variant="contained">{dialogValue}</Button>
         </Box>
       </Dialog>
+
     </Grid>
   );
 };

@@ -1,5 +1,7 @@
 'use client';
 
+/* eslint-disable */
+
 import React from 'react';
 import Head from 'next/head';
 import './globals.css';
@@ -58,13 +60,13 @@ export default function RootLayout({
         id="1"
         strategy="afterInteractive"
       />
-      <Provider store={storeMain}>
-        <body>
-          <ThemeRegistry options={{ key: 'mui' }}>
-            {children}
-          </ThemeRegistry>
-        </body>
-      </Provider>
+      <body>
+        <ThemeRegistry options={{ key: 'mui' }}>
+    <Provider store={storeMain}>
+          {children}
+          </Provider>
+        </ThemeRegistry>
+      </body>
     </html>
   );
 }

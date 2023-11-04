@@ -1,0 +1,88 @@
+[debug] [2023-11-04T13:44:23.548Z] ----------------------------------------------------------------------
+[debug] [2023-11-04T13:44:23.548Z] Command:       /usr/local/bin/node /opt/homebrew/bin/firebase deploy
+[debug] [2023-11-04T13:44:23.549Z] CLI Version:   12.8.0
+[debug] [2023-11-04T13:44:23.549Z] Platform:      darwin
+[debug] [2023-11-04T13:44:23.549Z] Node Version:  v18.14.0
+[debug] [2023-11-04T13:44:23.550Z] Time:          Sat Nov 04 2023 16:44:23 GMT+0300 (Moscow Standard Time)
+[debug] [2023-11-04T13:44:23.550Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-11-04T13:44:23.583Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-11-04T13:44:23.583Z] > authorizing via signed-in user (vasilkamalov@gmail.com)
+[debug] [2023-11-04T13:44:23.583Z] [iam] checking project template-ts-next for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-11-04T13:44:23.584Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/template-ts-next:testIamPermissions [none]
+[debug] [2023-11-04T13:44:23.584Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/template-ts-next:testIamPermissions x-goog-quota-user=projects/template-ts-next
+[debug] [2023-11-04T13:44:23.584Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/template-ts-next:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-11-04T13:44:24.479Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/template-ts-next:testIamPermissions 200
+[debug] [2023-11-04T13:44:24.479Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/template-ts-next:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-11-04T13:44:24.480Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/template-ts-next [none]
+[debug] [2023-11-04T13:44:24.786Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/template-ts-next 200
+[debug] [2023-11-04T13:44:24.786Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/template-ts-next {"projectId":"template-ts-next","projectNumber":"893100195224","displayName":"template-ts-next","name":"projects/template-ts-next","resources":{"hostingSite":"template-ts-next","realtimeDatabaseInstance":"template-ts-next-default-rtdb"},"state":"ACTIVE","etag":"1_4b26b216-91dc-485e-ba89-b4099a10ff91"}
+[debug] [2023-11-04T13:44:25.773Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/template-ts-next/sites pageToken=&pageSize=10
+[debug] [2023-11-04T13:44:26.936Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/template-ts-next/sites 200
+[debug] [2023-11-04T13:44:26.937Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/template-ts-next/sites {"sites":[{"name":"projects/template-ts-next/sites/template-ts-next","defaultUrl":"https://template-ts-next.web.app","appId":"1:893100195224:web:a6a1c527a030673a87bfed","type":"DEFAULT_SITE"}]}
+[debug] [2023-11-04T13:44:26.937Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:893100195224:web:a6a1c527a030673a87bfed/config [none]
+[debug] [2023-11-04T13:44:27.757Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:893100195224:web:a6a1c527a030673a87bfed/config 200
+[debug] [2023-11-04T13:44:27.757Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:893100195224:web:a6a1c527a030673a87bfed/config {"projectId":"template-ts-next","appId":"1:893100195224:web:a6a1c527a030673a87bfed","databaseURL":"https://template-ts-next-default-rtdb.firebaseio.com","storageBucket":"template-ts-next.appspot.com","apiKey":"AIzaSyCR97AKZ7kEuv8lK1S9-y-d6Ay-mJbT9Zo","authDomain":"template-ts-next.firebaseapp.com","messagingSenderId":"893100195224","measurementId":"G-9P1QR88G38"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[info] - info Loaded env from /Users/vasilkamalov/just_coding/codding_for_soul/gitClone/next-ts-template-photography_branch/next-ts-template/.env
+
+[info] - info Creating an optimized production build...
+
+[info] - info Compiled successfully
+
+[info] - info Linting and checking validity of types...
+
+[info] - info Collecting page data...
+
+[info] - info Generating static pages (0/4)
+
+[info] - info Generating static pages (1/4)
+
+[info] - info Generating static pages (2/4)
+
+[info] - info Generating static pages (3/4)
+
+[info] TypeError: Cannot destructure property 'store' of 'useReduxContext(...)' as it is null.
+    at useStore (/Users/vasilkamalov/just_coding/codding_for_soul/gitClone/next-ts-template-photography_branch/next-ts-template/.next/server/chunks/772.js:81625:7)
+    at useDispatch (/Users/vasilkamalov/just_coding/codding_for_soul/gitClone/next-ts-template-photography_branch/next-ts-template/.next/server/chunks/772.js:81412:19)
+    at useAppDispatch (/Users/vasilkamalov/just_coding/codding_for_soul/gitClone/next-ts-template-photography_branch/next-ts-template/.next/server/app/page.js:2054:84)
+    at Header (/Users/vasilkamalov/just_coding/codding_for_soul/gitClone/next-ts-template-photography_branch/next-ts-template/.next/server/app/page.js:848:54)
+    at Je (/Users/vasilkamalov/just_coding/codding_for_soul/gitClone/next-ts-template-photography_branch/next-ts-template/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:121:272)
+    at Je (/Users/vasilkamalov/just_coding/codding_for_soul/gitClone/next-ts-template-photography_branch/next-ts-template/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:127:11)
+    at Z (/Users/vasilkamalov/just_coding/codding_for_soul/gitClone/next-ts-template-photography_branch/next-ts-template/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:128:91)
+    at Ke (/Users/vasilkamalov/just_coding/codding_for_soul/gitClone/next-ts-template-photography_branch/next-ts-template/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:131:155)
+    at Me (/Users/vasilkamalov/just_coding/codding_for_soul/gitClone/next-ts-template-photography_branch/next-ts-template/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:130:289)
+    at Z (/Users/vasilkamalov/just_coding/codding_for_soul/gitClone/next-ts-template-photography_branch/next-ts-template/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:128:350)
+
+[info] 
+Error occurred prerendering page "/". Read more: https://nextjs.org/docs/messages/prerender-error
+TypeError: Cannot destructure property 'store' of 'useReduxContext(...)' as it is null.
+    at useStore (/Users/vasilkamalov/just_coding/codding_for_soul/gitClone/next-ts-template-photography_branch/next-ts-template/.next/server/chunks/772.js:81625:7)
+    at useDispatch (/Users/vasilkamalov/just_coding/codding_for_soul/gitClone/next-ts-template-photography_branch/next-ts-template/.next/server/chunks/772.js:81412:19)
+    at useAppDispatch (/Users/vasilkamalov/just_coding/codding_for_soul/gitClone/next-ts-template-photography_branch/next-ts-template/.next/server/app/page.js:2054:84)
+    at Header (/Users/vasilkamalov/just_coding/codding_for_soul/gitClone/next-ts-template-photography_branch/next-ts-template/.next/server/app/page.js:848:54)
+    at Je (/Users/vasilkamalov/just_coding/codding_for_soul/gitClone/next-ts-template-photography_branch/next-ts-template/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:121:272)
+    at Je (/Users/vasilkamalov/just_coding/codding_for_soul/gitClone/next-ts-template-photography_branch/next-ts-template/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:127:11)
+    at Z (/Users/vasilkamalov/just_coding/codding_for_soul/gitClone/next-ts-template-photography_branch/next-ts-template/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:128:91)
+    at Ke (/Users/vasilkamalov/just_coding/codding_for_soul/gitClone/next-ts-template-photography_branch/next-ts-template/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:131:155)
+    at Me (/Users/vasilkamalov/just_coding/codding_for_soul/gitClone/next-ts-template-photography_branch/next-ts-template/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:130:289)
+    at Z (/Users/vasilkamalov/just_coding/codding_for_soul/gitClone/next-ts-template-photography_branch/next-ts-template/node_modules/next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.min.js:128:350)
+
+[info] - info Generating static pages (4/4)
+
+[info] 
+> Export encountered errors on following paths:
+	/page: /
+
+[debug] [2023-11-04T13:44:38.704Z] Error: ENOENT: no such file or directory, open '/Users/vasilkamalov/just_coding/codding_for_soul/gitClone/next-ts-template-photography_branch/next-ts-template/.next/export-marker.json'
+[error] 
+[error] Error: An unexpected error has occurred.

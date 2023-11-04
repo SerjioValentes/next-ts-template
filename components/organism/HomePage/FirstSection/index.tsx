@@ -331,13 +331,13 @@ const FirstSection = () => {
 
   return (
     <Grid container spacing={2}>
-      <Button onClick={() => {
+      {/* <Button onClick={() => {
         console.log(savedNotes);
       }}
       >
         show
 
-      </Button>
+      </Button> */}
       <Grid xs={3} item>
         <InputTitleWrapper>Разовая воронка</InputTitleWrapper>
         <Box sx={{

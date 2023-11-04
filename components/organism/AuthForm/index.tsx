@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import Input from '@/components/atom/Input';
-import { Button } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@/helpers/firebase/auth';
 import CustomizedSwitches from '@/components/atom/Switch';
 import FormWrapper from './style';
@@ -39,8 +38,8 @@ function AuthForm() {
 
   return (
     <FormWrapper>
-      <Input name="email" placeholder="email" onChange={userDataOnChange} />
-      <Input name="password" placeholder="password" onChange={userDataOnChange} />
+      <TextField name="email" placeholder="email" onChange={userDataOnChange} />
+      <TextField name="password" placeholder="password" onChange={userDataOnChange} />
       {errors.map((error: string) => <div key={error}>{error}</div>)}
       <CustomizedSwitches firstLabel="Log In" secondLabel="Create account" setIsNewUser={setIsNewUser} />
       {isNewUser

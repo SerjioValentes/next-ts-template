@@ -8,17 +8,17 @@ import {
 } from '@mui/material';
 import Button from '@mui/material/Button';
 import MenuIcon from '@mui/icons-material/Menu';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import useAppSelector from '@/hooks/useAppSelector';
-import { setSavedNotes as dispatchSetSavedNotes } from '@/store/user/slice';
-import { useAppDispatch } from '@/store';
+// import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+// import { setSavedNotes as dispatchSetSavedNotes } from '@/store/user/slice';
+// import { useAppDispatch } from '@/store';
 
 // export default function RightMenuDrawer({ savedNotes, setSavedNotes }: any) {
 export default function RightMenuDrawer({ savedNotes }: any) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [whatToShow, setWhatToShow] = useState('articles');
   const allRoundsData = useAppSelector((state) => state.user.allRoundsData);
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   const openDrawer = () => {
     setIsDrawerOpen(true);
@@ -27,10 +27,11 @@ export default function RightMenuDrawer({ savedNotes }: any) {
     setIsDrawerOpen(false);
   };
 
-  const deleteNote = (date: string) => {
-    const newSavedNotes = savedNotes.filter((item: any) => item.date !== date);
-    dispatch(dispatchSetSavedNotes(newSavedNotes));
-  };
+  // Delete array function ---  !!!!
+  // const deleteNote = (date: string) => {
+  //   const newSavedNotes = savedNotes.filter((item: any) => item.date !== date);
+  //   dispatch(dispatchSetSavedNotes(newSavedNotes));
+  // };
   const changeData = (data: string) => {
     if (data === 'articles') {
       return setWhatToShow('articles');
@@ -56,12 +57,13 @@ export default function RightMenuDrawer({ savedNotes }: any) {
           <Stack
             direction="row"
             justifyContent="space-between"
+            spacing={4}
             sx={{
               p: 2,
             }}
           >
-            <Button onClick={() => changeData('articles')}>Записи расходов</Button>
-            <Button onClick={() => changeData('allRounds')}>Все ходы</Button>
+            <Button color={whatToShow === 'articles' ? 'secondary' : 'primary'} variant="contained" fullWidth onClick={() => changeData('articles')}>Записи расходов</Button>
+            <Button color={whatToShow === 'articles' ? 'primary' : 'secondary'} variant="contained" fullWidth onClick={() => changeData('allRounds')}>Все ходы</Button>
           </Stack>
           {whatToShow === 'articles' ? savedNotes.map((item: any) => (
             <List
@@ -74,22 +76,21 @@ export default function RightMenuDrawer({ savedNotes }: any) {
               key={item.date}
             >
               <Box>
-                <ListItem>
+                <ListItem sx={{
+                  px: 10,
+                  backgroundColor: item.whatHappened === 'Убавить' ? '#FF5A33' : '#B4CF66',
+                  color: item.whatHappened === 'Убавить' ? '#fff' : 'black',
+                  borderRadius: 3,
+                  fontWeight: 'bold',
+                }}
+                >
                   {item.whatHappened === 'Убавить' ? '-' : '+'}
                   {item.amount}
                 </ListItem>
                 <ListItem>
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum, odio?
                   {item.note}
                 </ListItem>
-              </Box>
-              <Box>
-                <Button
-                  disabled
-                  onClick={() => deleteNote(item.date)}
-                >
-                  <DeleteForeverIcon />
-
-                </Button>
               </Box>
             </List>
           ))

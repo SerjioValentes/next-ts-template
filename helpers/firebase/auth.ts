@@ -43,7 +43,7 @@ export const createUserWithEmailAndPassword = (setErrors: any, { email, password
       return userCredential;
     })
     .catch((error) => {
-      console.log(error.code, '<< ========== Check it');
+      // console.log(error.code, '<< ========== Check it');
       const errors = errorValidation(error.code);
       setErrors(errors);
     });
@@ -56,7 +56,7 @@ export const signInWithEmailAndPassword = (setErrors: any, { email, password }: 
       window.localStorage.setItem('accessToken', JSON.stringify(userCredential.user.accessToken));
     })
     .catch((error) => {
-      console.log(error.code, '<< ========== Check it');
+      // console.log(error.code, '<< ========== Check it');
       const errors = errorValidation(error.code);
       setErrors(errors);
     });

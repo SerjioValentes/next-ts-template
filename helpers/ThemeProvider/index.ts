@@ -43,7 +43,7 @@ const theme: Theme = createTheme({
     },
     secondary: {
       main: '#fff',
-      contrastText: '#fff',
+      contrastText: '#000',
     },
   },
 });

@@ -1,17 +1,17 @@
 'use client';
 
+/* eslint-disable */
+
 import RightMenuDrawer from '@/components/molecule/Drawer';
 import { getNormalNumber } from '@/helpers/utils/restyling';
 // import getNumberWithSpaces from '@/helpers/utils/restyling';
 import useAppSelector from '@/hooks/useAppSelector';
 import { useAppDispatch } from '@/store';
-import { setHeaderMainPlayerData } from '@/store/header';
 import { setAllRoundsData, setEachPlayerData } from '@/store/user/slice';
 import {
   Box, Button, Dialog, DialogTitle, Stack, TextField, Typography,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-// import useWindowSize from '@/hooks/useWindowSize';
 
 const Header = () => {
   const [isDialogEndRoundOpen, setIsDialogEndRoundOpen] = useState(false);
@@ -23,9 +23,8 @@ const Header = () => {
 
   });
   const dispatch = useAppDispatch();
+  const { allRoundsData, savedNotes } = useAppSelector((state) => state.user);
   const eachUserData = useAppSelector((state) => state.user.data);
-  const allRoundsData = useAppSelector((state) => state.user.allRoundsData);
-  const savedNotes = useAppSelector((state) => state.user.savedNotes);
 
   const handleOnChange = (value: any, gameValue: string) => {
     // TODO - check this function - maybe can change to dispatch and get values from there
@@ -34,10 +33,10 @@ const Header = () => {
       [gameValue]: value.target.value,
     }));
 
-    dispatch(setHeaderMainPlayerData({
-      ...gameMainValues,
-      [gameValue]: value.target.value,
-    }));
+    // dispatch(setHeaderMainPlayerData({
+    //   ...gameMainValues,
+    //   [gameValue]: value.target.value,
+    // }));
     window.localStorage.setItem('gameMainValues', JSON.stringify({
       ...gameMainValues,
       [gameValue]: value.target.value,
@@ -52,7 +51,6 @@ const Header = () => {
   }, []);
 
   const getEachUserData = () => {
-    console.log(allRoundsData);
     setIsDialogEndRoundOpen(true);
   };
 

@@ -14,6 +14,6 @@ export const storeMain = store;
 export type StoreMain = ReturnType<typeof store.getState>;
 export type RootState = ReturnType<typeof store.getState>;
 
-// export type AppDispatch = typeof store.dispatch;
+export type AppDispatch = typeof store.dispatch;
 // export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppDispatch = () => useDispatch();

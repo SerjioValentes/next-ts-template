@@ -9,10 +9,11 @@ const AboutMeSection = () => (
     justifyContent="space-between"
     sx={{
       px: 20,
+      backgroundColor: 'primary.main',
     }}
   >
     <ImageNext width="300px" height="300px" imgSrc="/assets/imgs/nature_result.jpg" alt="Vasil Kamalov photography" />
-    <Typography>
+    <Typography color="primary.contrastText">
       Lorem ipsum dolor sit, amet consectetur adipisicing elit
     </Typography>
   </Stack>

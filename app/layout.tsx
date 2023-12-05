@@ -3,6 +3,7 @@ import Head from 'next/head';
 import './globals.css';
 import { Inter, Roboto } from 'next/font/google';
 import Script from 'next/script';
+import ThemeRegistry from '@/app/ThemeRegistry';
 
 const inter = Inter({ subsets: ['latin'] });
 const roboto = Roboto({
@@ -66,9 +67,14 @@ export default function RootLayout({
         id="1"
         strategy="afterInteractive"
       />
-      {/* {children} */}
+      <body className={inter.className}>
 
-      <body className={inter.className}>{children}</body>
+        <ThemeRegistry options={{ key: 'mui' }}>
+          {/* <Provider store={storeMain}> */}
+          {children}
+          {/* </Provider> */}
+        </ThemeRegistry>
+      </body>
     </html>
   );
 }

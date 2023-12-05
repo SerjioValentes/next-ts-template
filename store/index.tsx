@@ -1,8 +1,7 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { createSlice } from '@reduxjs/toolkit'
-import  userSlice  from './user/slice'
+import { configureStore, createSlice } from '@reduxjs/toolkit';
+import userSlice from './user/slice';
 
-// create a slice 
+// create a slice
 // export const iconslice= createSlice({
 // name:"icon",
 // initialState:{
@@ -18,13 +17,12 @@ import  userSlice  from './user/slice'
 //    }
 // })
 
+// config the store
+const store = configureStore({
+  reducer: {
+    user: userSlice,
+  },
+});
 
-// config the store 
-const store= configureStore({
-   reducer: {
-      user: userSlice
-   }
-})
-
-// export default the store 
-export default store
+// export default the store
+export default store;
